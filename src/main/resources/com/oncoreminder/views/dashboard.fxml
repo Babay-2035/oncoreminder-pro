@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.oncoreminder.controllers.DashboardController"
+            styleClass="root-pane">
+
+    <!-- ═════ TOP BAR ═════ -->
+    <top>
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="16">
+            <padding><Insets top="14" right="24" bottom="14" left="24"/></padding>
+            <VBox spacing="2">
+                <Label text="OncoReminder Pro" styleClass="brand-title"/>
+                <Label text="Menu Principal" styleClass="brand-subtitle"/>
+            </VBox>
+        </HBox>
+    </top>
+
+    <!-- ═════ CENTER ═════ -->
+    <center>
+        <VBox alignment="CENTER" spacing="20" styleClass="dashboard-center">
+            <padding><Insets top="60" right="60" bottom="60" left="60"/></padding>
+
+            <Label text="Bienvenue dans OncoReminder Pro" styleClass="dashboard-welcome"/>
+            <Label text="Sélectionnez un module pour commencer" styleClass="brand-subtitle"/>
+
+            <VBox spacing="14" alignment="CENTER" maxWidth="340">
+                <padding><Insets top="30"/></padding>
+
+                <Button text="🗂️  Gestion des Types de Cancer" onAction="#openCancer"
+                        maxWidth="Infinity" styleClass="btn-dashboard-teal"/>
+
+                <Button text="🔗  Association Patient ↔ Cancer" onAction="#openPatientCancer"
+                        maxWidth="Infinity" styleClass="btn-dashboard-purple"/>
+
+
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

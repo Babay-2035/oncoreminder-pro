@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.oncoreminder.controllers.BodySelectorController"
+            styleClass="body-selector-root"
+            prefWidth="1100" prefHeight="700">
+
+    <!-- ═════ TOP BAR ═════ -->
+    <top>
+        <HBox styleClass="bs-topbar" alignment="CENTER_LEFT" spacing="14">
+            <padding><Insets top="14" right="24" bottom="14" left="24"/></padding>
+            <VBox spacing="3">
+                <Label fx:id="lblTitle" text="➕ Ajouter un cancer" styleClass="bs-title"/>
+                <Label text="Cliquez sur un organe ou recherchez dans la liste" styleClass="bs-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblSelectedZone" text="" styleClass="bs-selected-zone-label"/>
+        </HBox>
+    </top>
+
+    <!-- ═════ CENTER ═════ -->
+    <center>
+        <HBox spacing="0">
+
+            <!-- ── Colonne gauche : Liste ── -->
+            <VBox styleClass="bs-list-panel" spacing="10" prefWidth="230">
+                <padding><Insets top="16" right="14" bottom="16" left="14"/></padding>
+                <Label text="🔬 Types de cancer" styleClass="bs-panel-label"/>
+                <TextField fx:id="tfSearch" promptText="Rechercher..."
+                           styleClass="bs-search" onKeyReleased="#onSearch"/>
+                <ListView fx:id="listCancers" styleClass="bs-listview" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
+            <!-- ── Colonne centre : Corps humain ── -->
+            <VBox styleClass="bs-body-panel" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="8">
+                <padding><Insets top="12" right="0" bottom="12" left="0"/></padding>
+                <Label text="Cliquez sur un organe pour le sélectionner"
+                       styleClass="bs-hint-label"/>
+                <ScrollPane fitToWidth="true" fitToHeight="false"
+                            styleClass="bs-scroll" VBox.vgrow="ALWAYS">
+                    <Pane fx:id="bodyPane" prefWidth="320" prefHeight="580"
+                          minWidth="320" minHeight="580"/>
+                </ScrollPane>
+            </VBox>
+
+            <!-- ── Colonne droite : Formulaire ── -->
+            <VBox styleClass="bs-form-panel" spacing="10" prefWidth="300">
+                <padding><Insets top="16" right="18" bottom="16" left="18"/></padding>
+
+                <Label text="📋 Informations" styleClass="bs-panel-label"/>
+
+                <!-- Nom -->
+                <VBox spacing="4">
+                    <Label text="Nom du cancer *" styleClass="bs-field-label"/>
+                    <TextField fx:id="tfNom" promptText="Ex: Cancer du sein" styleClass="bs-field"/>
+                </VBox>
+
+                <!-- Classification -->
+                <VBox spacing="4">
+                    <Label text="Classification *" styleClass="bs-field-label"/>
+                    <ComboBox fx:id="cbClassification" promptText="Sélectionner..."
+                              styleClass="bs-field" maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- Stade -->
+                <VBox spacing="4">
+                    <Label text="Stade *" styleClass="bs-field-label"/>
+                    <ComboBox fx:id="cbStade" promptText="0, I, II, III, IV"
+                              styleClass="bs-field" maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- Organe -->
+                <VBox spacing="4">
+                    <Label text="Organe / Localisation *" styleClass="bs-field-label"/>
+                    <TextField fx:id="tfOrgane" promptText="Auto-détecté..." styleClass="bs-field"/>
+                </VBox>
+
+                <!-- Description -->
+                <VBox spacing="4">
+                    <Label text="Description" styleClass="bs-field-label"/>
+                    <TextArea fx:id="taDescription" promptText="Description médicale..."
+                              styleClass="bs-textarea" prefHeight="80" wrapText="true"/>
+                </VBox>
+
+                <!-- Symptômes -->
+                <VBox spacing="4">
+                    <Label text="Symptômes" styleClass="bs-field-label"/>
+                    <TextArea fx:id="taSymptomes" promptText="Symptômes principaux..."
+                              styleClass="bs-textarea" prefHeight="80" wrapText="true"/>
+                </VBox>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Button fx:id="btnEnregistrer" text="✓  Enregistrer"
+                        styleClass="bs-btn-save" maxWidth="Infinity"
+                        disable="true" onAction="#onEnregistrer"/>
+                <Button text="✖  Annuler" styleClass="bs-btn-cancel"
+                        maxWidth="Infinity" onAction="#onAnnuler"/>
+            </VBox>
+
+        </HBox>
+    </center>
+</BorderPane>

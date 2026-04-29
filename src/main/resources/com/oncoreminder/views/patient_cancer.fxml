@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.oncoreminder.controllers.PatientCancerController"
+            styleClass="root-pane">
+
+    <!-- HEADER -->
+    <top>
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="16">
+            <padding><Insets top="14" right="24" bottom="14" left="24"/></padding>
+            <Button text="← Retour" onAction="#handleRetour" styleClass="btn-back"/>
+            <VBox spacing="2">
+                <Label text="OncoReminder Pro" styleClass="brand-title"/>
+                <Label text="Association Patient ↔ Cancer" styleClass="brand-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox styleClass="stat-badge" alignment="CENTER" spacing="8">
+                <Label text="Total associations :" styleClass="stat-label"/>
+                <Label fx:id="lblCount" text="0" styleClass="stat-value"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- CONTENU PRINCIPAL -->
+    <center>
+        <HBox spacing="20">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+            <!-- FORMULAIRE -->
+            <VBox spacing="14" prefWidth="320" styleClass="form-panel">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+                <Label text="Nouvelle association" styleClass="form-title"/>
+
+                <!-- Patient -->
+                <VBox spacing="4">
+                    <Label text="Patient *" styleClass="field-label"/>
+                    <ComboBox fx:id="cbPatient" maxWidth="Infinity" promptText="Sélectionner un patient" styleClass="field-combo"/>
+                </VBox>
+
+                <!-- Cancer -->
+                <VBox spacing="4">
+                    <Label text="Cancer *" styleClass="field-label"/>
+                    <ComboBox fx:id="cbCancer" maxWidth="Infinity" promptText="Sélectionner un cancer" styleClass="field-combo"/>
+                </VBox>
+
+                <!-- Stade -->
+                <VBox spacing="4">
+                    <Label text="Stade actuel *" styleClass="field-label"/>
+                    <ComboBox fx:id="cbStade" maxWidth="Infinity" promptText="Sélectionner un stade" styleClass="field-combo"/>
+                </VBox>
+
+                <!-- Date -->
+                <VBox spacing="4">
+                    <Label text="Date d'association *" styleClass="field-label"/>
+                    <DatePicker fx:id="dpDate" maxWidth="Infinity" styleClass="field-input"/>
+                </VBox>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <!-- Boutons -->
+                <HBox spacing="8">
+                    <Button fx:id="btnAjouter" text="➕ Ajouter" onAction="#handleAjouter"
+                            styleClass="btn-primary" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button fx:id="btnModifier" text="✏️ Modifier" onAction="#handleModifier"
+                            styleClass="btn-warning" HBox.hgrow="ALWAYS" maxWidth="Infinity" disable="true"/>
+                    <Button text="↺ Réinit." onAction="#handleReset"
+                            styleClass="btn-secondary" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+
+                <Label fx:id="lblStatut" text="" wrapText="true"/>
+            </VBox>
+
+            <!-- TABLEAU -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+
+                <!-- Barre recherche + actions -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="tfRecherche" promptText="🔍 Rechercher..." onKeyReleased="#handleRecherche"
+                               prefWidth="240" styleClass="search-field"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="🗑️ Supprimer" onAction="#handleSupprimer"
+                            styleClass="btn-danger" prefWidth="120"/>
+                </HBox>
+
+                <TableView fx:id="tableView" VBox.vgrow="ALWAYS" styleClass="main-table" onMouseClicked="#handleSelection">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colPatient" text="Patient" prefWidth="180"/>
+                        <TableColumn fx:id="colCancer" text="Cancer" prefWidth="200"/>
+                        <TableColumn fx:id="colStade" text="S..." prefWidth="60"/>
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="Aucune association enregistrée" styleClass="table-placeholder"/>
+                    </placeholder>
+                </TableView>
+
+                <HBox alignment="CENTER_LEFT">
+                    <Label fx:id="lblTotalBottom" styleClass="stat-label"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

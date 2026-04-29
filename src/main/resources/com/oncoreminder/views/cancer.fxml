@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.oncoreminder.controllers.CancerController"
+            styleClass="root-pane">
+
+    <!-- ═════ TOP BAR ═════ -->
+    <top>
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="16">
+            <padding><Insets top="14" right="24" bottom="14" left="24"/></padding>
+            <Button text="← Retour" onAction="#handleRetour" styleClass="btn-back"/>
+            <VBox spacing="2">
+                <Label text="OncoReminder Pro" styleClass="brand-title"/>
+                <Label text="Gestion des types de cancer" styleClass="brand-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <HBox styleClass="stat-badge" alignment="CENTER" spacing="8">
+                <Label text="Total types :" styleClass="stat-label"/>
+                <Label fx:id="lblTotal" text="0" styleClass="stat-value"/>
+            </HBox>
+            <HBox styleClass="search-box" alignment="CENTER_LEFT" spacing="8">
+                <Label text="🔍" styleClass="search-icon"/>
+                <TextField fx:id="tfRecherche" promptText="Rechercher par nom, organe..."
+                           styleClass="search-field" prefWidth="260"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- ═════ CENTER : TABLEAU SEULEMENT ═════ -->
+    <center>
+        <TableView fx:id="tableCancer" styleClass="main-table">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="colNom" text="Nom du cancer" prefWidth="280"/>
+                <TableColumn fx:id="colClassification" text="Classification" prefWidth="150"/>
+                <TableColumn fx:id="colStade" text="Stade" prefWidth="80"/>
+                <TableColumn fx:id="colOrgane" text="Organe" prefWidth="200"/>
+            </columns>
+            <placeholder>
+                <Label text="Aucun type de cancer enregistré." styleClass="table-placeholder"/>
+            </placeholder>
+        </TableView>
+    </center>
+
+    <!-- ═════ RIGHT : ACTIONS + DÉTAIL ═════ -->
+    <right>
+        <VBox styleClass="action-panel" spacing="12" prefWidth="220">
+            <padding><Insets top="24" right="16" bottom="24" left="16"/></padding>
+
+            <Label text="Actions" styleClass="action-title"/>
+
+            <!-- Boutons d'action -->
+            <Button fx:id="btnAjouter" text="➕ Ajouter" onAction="#onAjouter"
+                    styleClass="btn-primary" maxWidth="Infinity"/>
+            <Button fx:id="btnModifier" text="✏️ Modifier" onAction="#onModifier"
+                    styleClass="btn-warning" maxWidth="Infinity" disable="true"/>
+            <Button fx:id="btnSupprimer" text="🗑️ Supprimer" onAction="#onSupprimer"
+                    styleClass="btn-danger" maxWidth="Infinity" disable="true"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button fx:id="btnVider" text="✖ Effacer" onAction="#onVider"
+                    styleClass="btn-secondary" maxWidth="Infinity"/>
+
+            <!-- ═════ PANNEAU DE DÉTAIL (déplacé ici) ═════ -->
+            <VBox fx:id="panelDetail" styleClass="detail-panel"
+                  visible="false" managed="false" spacing="8">
+                <padding><Insets top="16" right="0" bottom="0" left="0"/></padding>
+
+                <Label fx:id="lblDetailNom" styleClass="detail-title" wrapText="true"/>
+
+                <VBox spacing="4">
+                    <Label text="Description :" styleClass="detail-section-label"/>
+                    <Label fx:id="lblDetailDesc" styleClass="detail-text" wrapText="true"/>
+                </VBox>
+
+                <VBox spacing="4">
+                    <Label text="Symptômes :" styleClass="detail-section-label"/>
+                    <Label fx:id="lblDetailSymp" styleClass="detail-text" wrapText="true"/>
+                </VBox>
+            </VBox>
+            <!-- ═════ FIN PANNEAU DÉTAIL ═════ -->
+
+        </VBox>
+    </right>
+</BorderPane>

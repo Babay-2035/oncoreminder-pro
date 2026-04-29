@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.oncoreminder.controllers.StatistiquesController"
+            styleClass="root-pane">
+
+    <!-- ═════ HEADER ═════ -->
+    <top>
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="20">
+            <padding><Insets top="14" right="24" bottom="14" left="24"/></padding>
+
+            <Button text="← Retour" onAction="#handleRetour" styleClass="btn-back"/>
+
+            <VBox spacing="2">
+                <Label text="OncoReminder Pro" styleClass="brand-title"/>
+                <Label text="Statistiques des Cancers" styleClass="brand-subtitle"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Badge total -->
+            <HBox styleClass="total-card" alignment="CENTER" spacing="10">
+                <Label text="🩺" styleClass="total-icon"/>
+                <VBox alignment="CENTER_LEFT" spacing="1">
+                    <Label text="TOTAL ASSOCIATIONS" styleClass="total-label"/>
+                    <Label fx:id="lblTotal" text="—" styleClass="total-value"/>
+                </VBox>
+            </HBox>
+
+            <Button text="🔄 Actualiser" onAction="#handleActualiser"
+                    styleClass="btn-secondary" prefWidth="140"/>
+        </HBox>
+    </top>
+
+    <!-- ═════ CONTENU PRINCIPAL ═════ -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="stat-scroll-pane"
+                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+            <VBox spacing="16">
+                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+
+                <!-- ── CAN-05 : BarChart ── -->
+                <VBox styleClass="stat-card" spacing="0">
+                    <HBox styleClass="stat-card-header" alignment="CENTER_LEFT" spacing="10">
+                        <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+                        <Label text="📊" styleClass="stat-card-icon"/>
+                        <VBox spacing="1">
+                            <Label text="Patients par type de cancer" styleClass="stat-card-title"/>
+                            <Label text="Distribution des patients selon leur pathologie" styleClass="stat-card-subtitle"/>
+                        </VBox>
+                    </HBox>
+                    <VBox styleClass="stat-card-body">
+                        <BarChart fx:id="chartParCancer"
+                                  prefHeight="210" minHeight="210"
+                                  animated="true" legendVisible="false"
+                                  styleClass="stat-chart-bar">
+                            <xAxis>
+                                <CategoryAxis fx:id="xAxisBarChart" tickLabelGap="4" styleClass="stat-axis-x"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Patients" minorTickCount="1" tickUnit="1" styleClass="stat-axis-y"/>
+                            </yAxis>
+                        </BarChart>
+                    </VBox>
+                </VBox>
+
+                <!-- ── CAN-06 + CAN-07 côte à côte ── -->
+                <HBox spacing="16">
+
+                    <!-- CAN-06 : Top cancers -->
+                    <VBox styleClass="stat-card" spacing="0" HBox.hgrow="ALWAYS">
+                        <HBox styleClass="stat-card-header" alignment="CENTER_LEFT" spacing="10">
+                            <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+                            <Label text="🏆" styleClass="stat-card-icon"/>
+                            <VBox spacing="1" HBox.hgrow="ALWAYS">
+                                <Label text="Top cancers" styleClass="stat-card-title"/>
+                                <Label text="Cancers les plus fréquents" styleClass="stat-card-subtitle"/>
+                            </VBox>
+                            <HBox alignment="CENTER_RIGHT" spacing="6">
+                                <Spinner fx:id="spinnerTop" min="3" max="10" initialValue="5"
+                                         prefWidth="68" prefHeight="32" editable="true"
+                                         styleClass="spinner-compact"/>
+                                <Button text="↻" onAction="#handleTopActualiser"
+                                        styleClass="btn-icon-teal" prefWidth="32" prefHeight="32"/>
+                            </HBox>
+                        </HBox>
+                        <VBox styleClass="stat-card-body" alignment="CENTER" VBox.vgrow="ALWAYS">
+                            <PieChart fx:id="chartTop"
+                                      prefHeight="300" minHeight="280"
+                                      animated="true" legendVisible="true" legendSide="BOTTOM"
+                                      styleClass="stat-chart-pie"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- CAN-07 : Répartition par stade (pie uniquement) -->
+                    <VBox styleClass="stat-card" spacing="0" HBox.hgrow="ALWAYS">
+                        <HBox styleClass="stat-card-header" alignment="CENTER_LEFT" spacing="10">
+                            <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+                            <Label text="📈" styleClass="stat-card-icon"/>
+                            <VBox spacing="1">
+                                <Label text="Répartition par stade" styleClass="stat-card-title"/>
+                                <Label text="Progression clinique des patients" styleClass="stat-card-subtitle"/>
+                            </VBox>
+                        </HBox>
+                        <VBox styleClass="stat-card-body" alignment="CENTER" VBox.vgrow="ALWAYS">
+                            <PieChart fx:id="chartStade"
+                                      prefHeight="300" minHeight="280"
+                                      animated="true" legendVisible="true" legendSide="BOTTOM"
+                                      styleClass="stat-chart-pie"/>
+                        </VBox>
+                    </VBox>
+
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
